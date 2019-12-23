@@ -13,7 +13,7 @@ const logger = function(req, res, next) {
 
 /* GET products. */
 router.get("/", function(req, res, next) {
-  Product.find({}, function(err, products) {
+  Product.find({}, (err, products) => {
     if (err) {
       return next(err);
     }
@@ -23,7 +23,7 @@ router.get("/", function(req, res, next) {
 
 /* GET product by id. */
 router.get("/:id", logger, function(req, res, next) {
-  Product.findOne({ _id: req.params.id }, function(err, product) {
+  Product.findOne({ _id: req.params.id }, (err, product) => {
     if (err) {
       return next(err);
     }
@@ -34,7 +34,7 @@ router.get("/:id", logger, function(req, res, next) {
 /* POST product. */
 router.post("/", function(req, res, next) {
   var product = new Product(req.body); // create document
-  product.save(function(err) {
+  product.save(err => {
     if (err) {
       return next(err);
     }
@@ -46,7 +46,7 @@ router.post("/", function(req, res, next) {
 router.delete("/:id", function(req, res, next) {
   // 204 - ресурс удален полностью
   // 200 - ресурс помечен как удаленный (нужно добавить тогда свойство в документ)
-  Product.deleteOne({ _id: req.params.id }, function(err) {
+  Product.deleteOne({ _id: req.params.id }, err => {
     if (err) {
       return next(err);
     }
