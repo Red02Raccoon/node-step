@@ -2,11 +2,12 @@ const JWTStrategy = require("passport-jwt").Strategy;
 const ExtractJwt = require("passport-jwt").ExtractJwt;
 
 const User = require("../models/user.model");
+const config = require("./configs");
 
 module.exports = function(password) {
   var opts = {
     jwtFromRequest: ExtractJwt.fromAuthHeaderWithScheme("JWT"),
-    secretOrKey: "secret-word"
+    secretOrKey: config.JWT_SECRET
   };
 
   password.use(

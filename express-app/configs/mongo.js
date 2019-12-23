@@ -1,14 +1,13 @@
 var mongoose = require("mongoose");
+const config = require("./configs");
 
-const dbURI =
-  "mongodb://Raccoon:raccoon1234@ds033831.mlab.com:33831/db_express_test";
 const dbOptions = {
   useUnifiedTopology: true,
   useNewUrlParser: true
 };
 
 mongoose
-  .connect(dbURI, dbOptions)
+  .connect(config.MONGODB_URI, dbOptions)
   .then(() => {
     console.log("i am connected");
   })
