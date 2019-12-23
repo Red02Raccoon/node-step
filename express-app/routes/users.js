@@ -2,13 +2,9 @@ var express = require("express");
 var jwt = require("jsonwebtoken");
 
 var User = require("../models/user.model");
+const config = require("../configs/configs");
 
 var router = express.Router();
-
-// /* GET users listing. */
-// router.get("/", function(req, res, next) {
-//   res.send("respond with a resource");
-// });
 
 router.post("/signup", function(req, res) {
   if (!req.body.username || !req.body.password) {
@@ -44,13 +40,13 @@ router.post("/signin", function(req, res) {
     if (!user) {
       return res.status(401).send({
         success: false,
-        msg: "Authentication failed. User not found"
+        msg: "Authentication failed. User not found!"
       });
     }
 
     user.comparePassword(req.body.password, function(err, isMatch) {
       if (isMatch && !err) {
-        var token = jwt.sign(user.toObject(), "secret-word", {
+        var token = jwt.sign(user.toObject(), config.JWT_SECRET, {
           expiresIn: "1d"
         });
 
